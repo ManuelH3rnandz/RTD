@@ -9,14 +9,14 @@
     </div>
     <ContainerBox>
       <div class="title_table">{{ titleTable }}</div>
-      <TableRTD :data="data" :columns="columns" />
+      <TableRTD :data="allRequests" :columns="columns" />
     </ContainerBox>
     
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import { mapState, mapGetters } from 'vuex'
 import BoxWidget from '@/components/BoxWidget.vue'
 import ContainerBox from '@/components/ContainerBox.vue'
 import TableRTD from '@/components/TableRTD.vue'
@@ -28,73 +28,26 @@ export default {
     ContainerBox,
     TableRTD,
   },
+  computed: {
+    ...mapState({
+      allRequests: state => state.requests.allRequests,
+      columns: state => state.requests.columns,
+    }),
+    ...mapGetters('requests', {
+      countOrcamentoPendentes: 'countOrcamentoPendentes',
+      countPagamentoPendente: 'countPagamentoPendente',
+      countPagamentoRealizado: 'countPagamentoRealizado',
+      countNotasDevolutivas: 'countNotasDevolutivas'
+    })
+  },
   data () {
     return {
       titleOrcamentoPendentes: 'ORÇAMENTOS PENDENTES',
-      countOrcamentoPendentes: 2,
       titlePagamentoPendente: 'PAGAMENTO PENDENTE',
-      countPagamentoPendente: 1,
       titlePagamentoRealizado: 'PAGAMENTO REALIZADO',
-      countPagamentoRealizado: 2,
       titleNotasDevolutivas: 'NOTAS DEVOLUTIVAS',
-      countNotasDevolutivas: 2,
       titleCreateRequest: 'CRIAR SOLICITAÇÃO',
       titleTable: 'Solicitações cadastradas',
-      // Table Info
-      data: [
-        { id: 1, protocol: '2021100817724268', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 2, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 2, protocol: '1028740912736481', name: 'Orçamento', date: '2016-10-15 13:43:27', situation: 1, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 3, protocol: '234095034985039', name: 'Registro (digitalização)', date: '2016-10-15 13:43:27', situation: 4, action: null, document: null },
-        { id: 4, protocol: '203498203947027', name: 'Orçamento', date: '2016-10-15 13:43:27', situation: 3, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 5, protocol: '069309603948539', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 4, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 6, protocol: '002983645024838', name: 'Registro (digitalização)', date: '2016-10-15 13:43:27', situation: 3, action: null, document: null },
-        { id: 7, protocol: '2021100817724268', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 2, action: null, document: null },
-        { id: 8, protocol: '1028740912736481', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 1, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 3, protocol: '234095034985039', name: 'Registro (digitalização)', date: '2016-10-15 13:43:27', situation: 4, action: null, document: null },
-        { id: 4, protocol: '203498203947027', name: 'Orçamento', date: '2016-10-15 13:43:27', situation: 3, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 5, protocol: '069309603948539', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 4, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 6, protocol: '002983645024838', name: 'Registro (digitalização)', date: '2016-10-15 13:43:27', situation: 3, action: null, document: null },
-        { id: 7, protocol: '2021100817724268', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 2, action: null, document: null },
-        { id: 3, protocol: '234095034985039', name: 'Registro (digitalização)', date: '2016-10-15 13:43:27', situation: 4, action: null, document: null },
-        { id: 4, protocol: '203498203947027', name: 'Orçamento', date: '2016-10-15 13:43:27', situation: 3, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 5, protocol: '069309603948539', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 4, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 6, protocol: '002983645024838', name: 'Registro (digitalização)', date: '2016-10-15 13:43:27', situation: 3, action: null, document: null },
-        { id: 7, protocol: '2021100817724268', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 2, action: null, document: null },
-        { id: 3, protocol: '234095034985039', name: 'Registro (digitalização)', date: '2016-10-15 13:43:27', situation: 4, action: null, document: null },
-        { id: 4, protocol: '203498203947027', name: 'Orçamento', date: '2016-10-15 13:43:27', situation: 3, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 5, protocol: '069309603948539', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 4, action: null, document: 'https://i.picsum.photos/id/1022/6000/3376.jpg?hmac=FBA9Qbec8NfDlxj8xLhV9k3DQEKEc-3zxkQM-hmfcy0' },
-        { id: 6, protocol: '002983645024838', name: 'Registro (digitalização)', date: '2016-10-15 13:43:27', situation: 3, action: null, document: null },
-        { id: 7, protocol: '2021100817724268', name: 'Pedido de Certidão', date: '2016-10-15 13:43:27', situation: 2, action: null, document: null },
-      ],
-      columns: [
-        {
-            field: 'protocol',
-            label: 'Protocolo',
-            // width: '40',
-            // numeric: true
-        },
-        {
-            field: 'name',
-            label: 'Nome',
-        },
-        {
-            field: 'date',
-            label: 'Data / Hora',
-            // centered: true
-        },
-        {
-            field: 'situation',
-            label: 'Situação',
-        },
-        {
-            field: 'action',
-            label: 'Ação',
-        },
-        {
-            field: 'document',
-            label: 'Anexos',
-        }
-      ]
     }
   },
   methods: {
@@ -114,7 +67,7 @@ export default {
           // call function here
           break;
         case "widgetCreateRequest":
-          // call function here
+          this.$emit("open")
           break;
       
         default:

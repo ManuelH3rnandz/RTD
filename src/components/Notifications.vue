@@ -10,18 +10,32 @@
           
       </template>
 
+      <template v-for="notification in allNotifications">
+        <b-dropdown-item aria-role="listitem"  :key="notification.id">
+          <div class="notification_container">
+            <TagSituation :type="notification.situation" />
+          </div>
+        </b-dropdown-item>
+      </template>
 
-      <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
-      <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
-      <b-dropdown-item aria-role="listitem">Something else</b-dropdown-item>
   </b-dropdown>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import TagSituation from '@/components/TagSituation.vue'
 
 export default {
   name: 'Notifications',
+  components: {
+    TagSituation
+  },
+  computed: {
+    ...mapState({
+      allNotifications: state => state.requests.notifications,
+    })
+  },
   data () {
     return {
       existNotification: true

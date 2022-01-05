@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard">
-    <div class="menu">
+    <div class="menu" :class="{ blur: newRequest }">
       <div class="logo_menu_items">
         <div class="logo">
           <img src="../assets/img/RTD_small.png" alt="">
@@ -14,22 +14,25 @@
       </div>
       <DidYouKnow :msg="youKnow"/>
     </div>
-    <TopBar :title-page="$route.name" />  
-    <div class="content">
-      <router-view/>
+    <TopBar :title-page="$route.name" :class="{ blur: newRequest }" />  
+    <div class="content" :class="{ blur: newRequest }">
+      <router-view @open="openCreateRequest" />
     </div>
+    <CreateRequest v-if="newRequest" @close="closeCreateRequest" />
   </div>
 </template>
 
 <script>
 import DidYouKnow from '@/components/DidYouKnow.vue'
 import TopBar from '@/components/TopBar.vue'
+import CreateRequest from '@/components/CreateRequest.vue'
 
 export default {
   name: 'AppLayout',
   components: {
     DidYouKnow,
     TopBar,
+    CreateRequest,
   },
   data () {
     return {
@@ -61,7 +64,8 @@ export default {
           icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><defs><style>.a{fill:#9598a7;}</style></defs><g transform="translate(-108 -625)"><g transform="translate(-3892 785)"><g transform="translate(4000 -160)"><path class="a" d="M8,15a7,7,0,1,1,7-7,7,7,0,0,1-7,7Zm0,1A8,8,0,1,0,0,8,8,8,0,0,0,8,16Z"/><path class="a" d="M8.93,6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738,3.468c-.194.9.105,1.319.808,1.319A2.071,2.071,0,0,0,8.831,12l.088-.416a1.108,1.108,0,0,1-.686.246c-.275,0-.375-.193-.3-.533ZM9,4.5a1,1,0,1,1-1-1A1,1,0,0,1,9,4.5Z"/></g></g></g></svg>`
         }
       ],
-      youKnow: 'Lorem Ipsum is simply dummy text of the print and type industry.'
+      youKnow: 'Lorem Ipsum is simply dummy text of the print and type industry.',
+      newRequest: false
     }
   },
   methods: {
@@ -85,6 +89,12 @@ export default {
           this.currentActive = 4
           break;
       }
+    },
+    openCreateRequest () {
+      this.newRequest = true
+    },
+    closeCreateRequest () {
+      this.newRequest = false
     }
   }
 }
@@ -92,6 +102,7 @@ export default {
 
 <style>
   .dashboard { background: var(--bg); min-height: 100vh; }
+  .blur { filter: blur(4px); }
   .menu { position: fixed; top: 0; left: 0; width: 231px; height: 100vh; background: var(--primary_blue); padding-top: 53px; padding-bottom: 40px; display: flex; flex-direction: column; justify-content: space-between; }
   .top_bar { position: fixed; top: 0; right: 0; width: calc(100% - 231px); height: 77px; background: var(--white); box-shadow: 0px 3px 6px #0000000D; }
   .content { padding-left: calc(231px + 22px); padding-top: calc(77px + 29px); padding-right: 35px; }

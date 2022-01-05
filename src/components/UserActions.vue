@@ -10,10 +10,9 @@
             <span class="user_name">{{ userName }}</span>
         </b-button>
       </template>
-
-
-      <b-dropdown-item aria-role="listitem">Action</b-dropdown-item>
-      <b-dropdown-item aria-role="listitem">Another action</b-dropdown-item>
+      <b-dropdown-item aria-role="listitem" @click="goToPerfil">Perfil</b-dropdown-item>
+      <hr class="dropdown-divider">
+      <b-dropdown-item aria-role="listitem" @click="logOut">Sair</b-dropdown-item>
     </b-dropdown>
   </div>
 </template>
@@ -26,6 +25,14 @@ export default {
     return {
       userName: 'Manuel Hernandez'
     }
+  },
+  methods: {
+    goToPerfil () {
+      console.log('Go to Perfil')
+    },
+    logOut () {
+      console.log('LogOut')
+    }
   }
 }
 </script>
@@ -37,4 +44,7 @@ export default {
   .btn_perfil > span { display: flex; }
   .user_image { display: block; width: 26px; height: 26px; border-radius: 50%; background-color: #EEF5FD; margin-right: 10px; }
   .user_name { color: #17203E; }
+  .dropdown-content { padding: 9px 16px; text-align: center; }
+  .dropdown-divider { min-width: 100px; }
+  .dropdown-content a.dropdown-item { padding-right: unset; padding-left: unset; color: #4B4B4B91; font-family: 'Montserrat', sans-serif; font-weight: 500; }
 </style>
