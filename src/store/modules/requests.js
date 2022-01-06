@@ -66,7 +66,14 @@ const state = () => ({
       situation: 2,
       protocolo: '2021100817724268',
       viewed: false
-    }
+    },
+    {
+      id: 2,
+      date: '2016-10-15 13:43:27',
+      situation: 3,
+      protocolo: '2021100817724268',
+      viewed: true
+    },
   ]
 })
 
@@ -84,6 +91,12 @@ const getters = {
   countNotasDevolutivas: (state) => {
     return state.allRequests.filter(req => (req.situation == 4)).length
   },
+  getNotifications: (state) => {
+    return state.notifications.reverse()
+  },
+  existNotifications: (state) => {
+    return state.notifications.length
+  } 
 }
 
 // actions
